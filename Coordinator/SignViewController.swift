@@ -34,6 +34,12 @@ class SignViewController: UIViewController {
     }
 
     @objc func signIn(sender: UIButton) {
-        parentCoordinator?.handle(event: SignEvent.signIn)
+        do {
+            try parentCoordinator?.handle(event: SignEvent.signIn)
+        } catch {
+            if case let AppEventError.eventNotHandled(event) = error {
+                fatalError("event not handled: [\(String(reflecting: type(of: event)))]")
+            }
+        }
     }
 }

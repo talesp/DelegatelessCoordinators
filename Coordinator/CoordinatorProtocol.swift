@@ -17,8 +17,8 @@ public protocol CoordinatorProtocol: AnyObject, NSObjectProtocol {
     var handlers: [String: (AppEvent) -> Void] { get }
 
     func target<T: AppEvent>(forEvent event: T) -> CoordinatorProtocol?
-    func handle<T: AppEvent>(event: T)
-    func add<T: AppEvent>(event: T.Type, handler: @escaping (T) -> Void)
+    func handle<T: AppEvent>(event: T) throws
+    func add<T: AppEvent>(eventType: T.Type, handler: @escaping (T) -> Void)
     func canHandle<T: AppEvent>(event: T) -> Bool
 
     func start(with completion: @escaping () -> Void)

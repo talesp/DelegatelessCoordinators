@@ -4,6 +4,9 @@
 //
 
 import UIKit
+enum AppEventError: Error {
+    case eventNotHandled(AppEvent)
+}
 
 open class Coordinator: NSObject, CoordinatorProtocol {
 
@@ -44,17 +47,17 @@ open class Coordinator: NSObject, CoordinatorProtocol {
             completion()
         }
     }
-    public func add<T>(event: T.Type, handler: @escaping (T) -> Void) where T : AppEvent {
-        handlers[String(reflecting: event)] = { ev in
+    public final func add<T>(eventType: T.Type, handler: @escaping (T) -> Void) where T : AppEvent {
+        handlers[String(reflecting: eventType)] = { ev in
             guard let realEV = ev as? T else { return }
             handler(realEV)
         }
     }
     
-    public func handle<T: AppEvent>(event: T) {
+    public final func handle<T: AppEvent>(event: T) throws {
         let target = self.target(forEvent: event)
         guard let handler = target?.handlers[String(reflecting: type(of: event))] else {
-            fatalError("Add a handler for event [\(String(reflecting:event))]")
+            throw AppEventError.eventNotHandled(event)
         }
         handler(event)
     }
@@ -66,12 +69,10 @@ open class Coordinator: NSObject, CoordinatorProtocol {
     public func target<T: AppEvent>(forEvent event: T) -> CoordinatorProtocol? {
         guard self.canHandle(event: event) != true else { return self }
         var next = self.parent
-        while next?.canHandle(event: event) != true {
+        while next?.canHandle(event: event) == false {
             next = next?.parent
         }
-        guard next != nil else { fatalError("Add a handler for event [\(String(reflecting:event))]") }
         return next
     }
-
 
 }

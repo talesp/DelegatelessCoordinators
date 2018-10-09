@@ -28,7 +28,7 @@ class AppCoordinator: Coordinator {
 
         self.window.makeKeyAndVisible()
 
-        self.add(event: SignEvent.self) { [weak self] event in
+        self.add(eventType: SignEvent.self) { [weak self] event in
             switch event {
             case .signIn:
                 guard let navigationCoordinator = self?.navigationCoordinator else {
@@ -45,7 +45,7 @@ class AppCoordinator: Coordinator {
             }
         }
 
-        self.add(event: SignInEvent.self) { [weak self] event in
+        self.add(eventType: SignInEvent.self) { [weak self] event in
             switch event {
             case .emptyUsernameOrPassword:
                 let alertController = UIAlertController(title: "Error",

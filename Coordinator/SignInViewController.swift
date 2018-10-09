@@ -63,9 +63,23 @@ class SignInViewController: UIViewController {
     @objc func signIn(sender: UIButton) {
         guard let username = self.usernameField.text, username.isEmpty == false,
                 let password = self.passwordField.text, password.isEmpty == false else {
-            self.parentCoordinator?.handle(event: SignInEvent.emptyUsernameOrPassword)
+                    do {
+                        try self.parentCoordinator?.handle(event: SignInEvent.emptyUsernameOrPassword)
+                    } catch {
+                        if case let AppEventError.eventNotHandled(event) = error {
+                            fatalError("event not handled: [\(String(reflecting: type(of: event)))]")
+                        }
+                    }
+
             return
         }
-        self.parentCoordinator?.handle(event: SignInEvent.signIn(username, password))
+        do {
+            try self.parentCoordinator?.handle(event: SignInEvent.signIn(username, password))
+        } catch {
+            if case let AppEventError.eventNotHandled(event) = error {
+                fatalError("event not handled: [\(String(reflecting: type(of: event)))]")
+            }
+        }
+
     }
 }
