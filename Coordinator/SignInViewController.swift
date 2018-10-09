@@ -63,9 +63,9 @@ class SignInViewController: UIViewController {
     @objc func signIn(sender: UIButton) {
         guard let username = self.usernameField.text, username.isEmpty == false,
                 let password = self.passwordField.text, password.isEmpty == false else {
-            self.parentCoordinator?.handle(event: SignInEvent(type: .emptyUsernameOrPassword), withSender: self)
+            self.parentCoordinator?.handle(event: SignInEvent.emptyUsernameOrPassword)
             return
         }
-        self.parentCoordinator?.handle(event: SignInEvent(type: .signIn(username, password)), withSender: self)
+        self.parentCoordinator?.handle(event: SignInEvent.signIn(username, password))
     }
 }

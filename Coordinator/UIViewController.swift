@@ -5,15 +5,15 @@
 
 import UIKit
 
-extension  UIViewController {
+extension UIViewController {
 
     private struct AssociatedKeys {
         static var ParentCoordinator = "ParentCoordinator"
     }
 
-    weak var parentCoordinator: CoordinatorProtocol? {
+    weak var parentCoordinator: Coordinator? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.ParentCoordinator) as? CoordinatorProtocol
+            return objc_getAssociatedObject(self, &AssociatedKeys.ParentCoordinator) as? Coordinator
         }
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.ParentCoordinator, newValue, .OBJC_ASSOCIATION_ASSIGN)

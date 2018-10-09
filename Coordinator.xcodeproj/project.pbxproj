@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02F8FA7821698D84002B5EF5 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8FA7721698D84002B5EF5 /* CoordinatorProtocol.swift */; };
 		CB7BB04F5D8B644CB656A68B /* ShoppingCartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BB30E8485621B972D4CF6 /* ShoppingCartCoordinator.swift */; };
 		CB7BB1565E46D51B50AD0493 /* ProductListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BBFFD02E1B8CE41867403 /* ProductListCoordinator.swift */; };
 		CB7BB2185538D3A6387985A9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB7BB8E1714A8F4F09949BC3 /* ProfileViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		02F8FA7721698D84002B5EF5 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		CB7BB1B9046160E54CCB0136 /* TabCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabCoordinator.swift; sourceTree = "<group>"; };
 		CB7BB1F989F3436C4349FC54 /* AppEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppEvent.swift; sourceTree = "<group>"; };
 		CB7BB248711020B1070A9F55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 				CB7BBD348CD7E3BD3154F9F8 /* SignInCoordinator.swift */,
 				CB7BBC8AE5975AE2E0FB12A1 /* SignInViewController.swift */,
 				CB7BBD912F69859E5661AE96 /* ShoppingCartViewController.swift */,
+				02F8FA7721698D84002B5EF5 /* CoordinatorProtocol.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				CB7BB04F5D8B644CB656A68B /* ShoppingCartCoordinator.swift in Sources */,
 				CB7BB2185538D3A6387985A9 /* ProfileViewController.swift in Sources */,
 				CB7BBC45973F5625CD680FF7 /* NavigationCoordinator.swift in Sources */,
+				02F8FA7821698D84002B5EF5 /* CoordinatorProtocol.swift in Sources */,
 				CB7BB635F3F0FE8DC05AF01E /* UIViewController.swift in Sources */,
 				CB7BBFE432F63925E2FC5711 /* AppEvent.swift in Sources */,
 				CB7BBC3B614EC5F1FC44E5F8 /* SignInCoordinator.swift in Sources */,
@@ -339,8 +343,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -377,6 +380,7 @@
 				CB7BB0E958FC78D1EC9A7A01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

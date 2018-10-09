@@ -5,21 +5,9 @@
 
 import UIKit
 
-enum SignEventType: AppEventType {
+enum SignEvent: AppEvent {
     case signIn
     case signUp
-}
-
-struct SignEvent: AppEvent {
-    private(set) var type: AppEventType
-    private(set) var subtype: AppEventSubType? = nil
-}
-
-extension SignEvent {
-    init(type: SignEventType, subtype: AppEventSubType? = nil) {
-        self.type = type
-        self.subtype = subtype
-    }
 }
 
 class SignViewController: UIViewController {
@@ -46,6 +34,6 @@ class SignViewController: UIViewController {
     }
 
     @objc func signIn(sender: UIButton) {
-        parentCoordinator?.handle(event: SignEvent(type: .signIn), withSender: self)
+        parentCoordinator?.handle(event: SignEvent.signIn)
     }
 }

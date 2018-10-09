@@ -5,13 +5,4 @@
 
 import Foundation
 
-protocol AppEventType { }
-
-protocol AppEventSubType { }
-
-protocol AppEvent {
-
-    var type: AppEventType { get }
-    var subtype: AppEventSubType? { get }
-
-}
+public protocol AppEvent {}

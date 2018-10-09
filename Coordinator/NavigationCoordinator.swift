@@ -5,19 +5,15 @@
 
 import UIKit
 
-class NavigationCoordinator: Coordinator {
+public class NavigationCoordinator: Coordinator {
 
-    init(rootViewController: UINavigationController) {
-        super.init(rootViewController: rootViewController)
-    }
-
-    override func start(with completion: @escaping () -> Void) {
+    override public func start(with completion: @escaping () -> Void) {
         guard let rootViewController = self.rootViewController as? UINavigationController else { return }
         rootViewController.delegate = self
         super.start(with: completion)
     }
 
-    override func stop(with completion: @escaping () -> Void) {
+    override public func stop(with completion: @escaping () -> Void) {
         guard let rootViewController = self.rootViewController as? UINavigationController else { return }
         rootViewController.delegate = nil
         super.stop(with: completion)

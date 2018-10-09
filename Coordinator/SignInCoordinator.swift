@@ -4,21 +4,13 @@
 //
 
 import UIKit
-enum SignInEventType: AppEventType {
+
+enum SignInEvent: AppEvent {
     typealias Username = String
     typealias Password = String
+
     case signIn(Username, Password)
     case emptyUsernameOrPassword
-}
-
-class SignInEvent: AppEvent {
-    private(set) var type: AppEventType
-    private(set) var subtype: AppEventSubType? = nil
-
-    init(type: SignInEventType, subtype: AppEventSubType? = nil) {
-        self.type = type
-        self.subtype = subtype
-    }
 }
 
 class SignInCoordinator: Coordinator {

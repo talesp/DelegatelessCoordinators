@@ -8,6 +8,8 @@ import os.log
 
 class AppCoordinator: Coordinator {
     private var window: UIWindow
+    private var navigationCoordinator: NavigationCoordinator?
+
     init(window: UIWindow) {
         self.window = window
         super.init(rootViewController: nil)
@@ -20,12 +22,50 @@ class AppCoordinator: Coordinator {
             self.startChild(coordinator: tabBarCoordinator)
         }
         else {
-            let navigationCoordinator = setupNavigationCoordinator()
-            self.startChild(coordinator: navigationCoordinator)
+            self.navigationCoordinator = setupNavigationCoordinator()
+            self.startChild(coordinator: self.navigationCoordinator!)
         }
 
         self.window.makeKeyAndVisible()
 
+        self.add(event: SignEvent.self) { [weak self] event in
+            switch event {
+            case .signIn:
+                guard let navigationCoordinator = self?.navigationCoordinator else {
+                    fatalError("something went wrong")
+                }
+                let childCoordinator = SignInCoordinator(rootViewController: navigationCoordinator.rootViewController)
+                navigationCoordinator.startChild(coordinator: childCoordinator)
+            case .signUp:
+                let alertController = UIAlertController(title: nil,
+                                                        message: "Currently it impossible to sign up in the app, please go to the site :p",
+                                                        preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                self?.rootViewController?.present(alertController, animated: true)
+            }
+        }
+
+        self.add(event: SignInEvent.self) { [weak self] event in
+            switch event {
+            case .emptyUsernameOrPassword:
+                let alertController = UIAlertController(title: "Error",
+                                                        message: "Empty or invalid username or password",
+                                                        preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                self?.rootViewController?.present(alertController, animated: true)
+
+            case let .signIn(username, password):
+                print("Auth with Username: \(username) - password: \(password)")
+                guard let navigationCoordinator = self?.navigationCoordinator else {
+                    fatalError("super.handle(event: event, withSender: self)")
+                }
+
+                self?.stopChild(coordinator: navigationCoordinator)
+
+                guard let tabBarCoordinator = self?.setupTabCoordinator() else { return }
+                self?.startChild(coordinator: tabBarCoordinator)
+            }
+        }
         super.start(with: completion)
     }
 
@@ -55,43 +95,4 @@ class AppCoordinator: Coordinator {
         return tabBarCoordinator
     }
 
-    override func canHandle(event: AppEvent, withSender sender: Any?) -> Bool {
-        switch event.type {
-        case SignEventType.signIn,
-             SignInEventType.signIn,
-             SignInEventType.emptyUsernameOrPassword:
-            return true
-        default:
-            return super.canHandle(event: event, withSender: sender)
-        }
-    }
-
-    override func handle(event: AppEvent, withSender sender: Any?) {
-        switch event.type {
-            case SignEventType.signIn:
-                guard let navigationCoordinator = self.childCoordinators["NavigationCoordinator"] as?
-                NavigationCoordinator else { super.handle(event: event, withSender: sender); return }
-                navigationCoordinator.startChild(coordinator: SignInCoordinator(rootViewController:
-                                                                                navigationCoordinator.rootViewController))
-        case SignInEventType.emptyUsernameOrPassword:
-            let alertController = UIAlertController(title: "Error",
-                                                    message: "Empty or invalid username or password",
-                                                    preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: .cancel))
-            self.rootViewController?.present(alertController, animated: true)
-            
-        case let SignInEventType.signIn(username, password):
-            print("Auth with Username: \(username) - password: \(password)")
-            guard let navigationCoordinator = self.childCoordinators["NavigationCoordinator"] as?
-                    NavigationCoordinator else { super.handle(event: event, withSender: sender); return }
-            self.stopChild(coordinator: navigationCoordinator)
-
-            let tabBarCoordinator = setupTabCoordinator()
-            self.startChild(coordinator: tabBarCoordinator)
-
-        default:
-            super.handle(event: event, withSender: sender)
-        }
-
-    }
 }
