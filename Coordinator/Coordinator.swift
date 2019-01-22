@@ -14,8 +14,6 @@ open class Coordinator: NSObject, CoordinatorProtocol {
 
     public var childCoordinators: [String : CoordinatorProtocol] = [:]
 
-    public typealias CoordinatorProtocolType = Coordinator
-
     private(set) public var handlers: [String: (AppEvent) -> Void] = [:]
 
     public weak var rootViewController: UIViewController?

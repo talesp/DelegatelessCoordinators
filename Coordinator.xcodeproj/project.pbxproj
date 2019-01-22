@@ -142,6 +142,11 @@
 			isa = PBXProject;
 			attributes = {
 				ORGANIZATIONNAME = talesp;
+				TargetAttributes = {
+					CB7BBB410E62F5B276F1B155 = {
+						LastSwiftMigration = 1010;
+					};
+				};
 			};
 			buildConfigurationList = CB7BB06457B45F093E61DDD0 /* Build configuration list for PBXProject "Coordinator" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -230,7 +235,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.talesp.Coordinator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -356,7 +361,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.talesp.Coordinator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
